@@ -4,9 +4,9 @@ class Php56Kafka < AbstractPhp56Extension
   init
   desc "PHP extension for Apache Kafka"
   homepage "https://github.com/EVODelavega/phpkafka/"
-  url "https://github.com/EVODelavega/phpkafka/archive/6a0908803ab6e9d862097e99f84aeb0fff9ecf03.tar.gz"
-  version "rev-6a09088"
-  sha256 "f76933b8dea53f822028368380f83e3d4c13ef93811e2014e023408ce4920357"
+  url "https://github.com/EVODelavega/phpkafka/archive/828763013e858a2bada6c403861e27aced16d003.tar.gz"
+  version "rev-8287630"
+  sha256 "e411f4e8864d934def4c647bc047246fd9db563143f499ff39f19090effbaece"
   head "https://github.com/EVODelavega/phpkafka.git"
 
   depends_on "librdkafka" => :build
