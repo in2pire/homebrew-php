@@ -2,13 +2,21 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php55Apcu < AbstractPhp55Extension
   init
-  homepage 'http://pecl.php.net/package/apcu'
-  url 'http://pecl.php.net/get/apcu-4.0.7.tgz'
-  sha1 '84d68cbafea61df1ff864c7a3e8d2302a2879347'
-  head 'https://github.com/krakjoe/apcu.git'
+  desc "APC User Cache"
+  homepage "https://pecl.php.net/package/apcu"
+  url "https://pecl.php.net/get/apcu-4.0.8.tgz"
+  sha256 "bef4f5ae309526a332e0f6b98f0579a45d6000b928991babe684d4c22432d57d"
+  head "https://github.com/krakjoe/apcu.git"
 
-  option 'with-apc-bc', "Whether APCu should provide APC full compatibility support"
-  depends_on 'pcre'
+  bottle do
+    cellar :any_skip_relocation
+    sha256 "75e8740ce93a36e7390ddd65d58d7dc8606f62b51b3410178bc6268004877ca3" => :el_capitan
+    sha256 "7ba7c05b697cb76c6dbdd982e7c008d2e3cd220ef06d16d174e7eebee9561098" => :yosemite
+    sha256 "2bf62225210fcf5e4f5489fbb024bb29863011c689f9957642d581f00bc11c26" => :mavericks
+  end
+
+  option "with-apc-bc", "Whether APCu should provide APC full compatibility support"
+  depends_on "pcre"
 
   def install
     Dir.chdir "apcu-#{version}" unless build.head?
@@ -17,7 +25,7 @@ class Php55Apcu < AbstractPhp55Extension
 
     args = []
     args << "--enable-apcu"
-    args << "--enable-apc-bc" if build.with? 'apc-bc'
+    args << "--enable-apc-bc" if build.with? "apc-bc"
 
     safe_phpize
 

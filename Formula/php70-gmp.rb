@@ -4,16 +4,16 @@ class Php70Gmp < AbstractPhp70Extension
   init
   desc "GMP core php extension"
   homepage "http://php.net/manual/en/book.gmp.php"
+  bottle do
+    revision 9
+    sha256 "e863158c64b4e0e02ec437fca851df3017250f9d89884019fc76d6b91ee7cc07" => :el_capitan
+    sha256 "068a95759c3bfcb476f5ff877e161abe68887fd6102e95368f1ea13d4b4647a7" => :yosemite
+    sha256 "540c16b2db48164d2489cee738f0d0c726ad5ff3a49f062136cb81f1992f115b" => :mavericks
+  end
+
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-
-  bottle do
-    revision 1
-    sha256 "c57555ad6fdeca534f6a96f8e39ed8e89e6bd327f7099d021bd66aa7dfa4c5d2" => :yosemite
-    sha256 "d5021fa9642fd6784dc94bcd007879d303514f59d46ba17178e4c99664af37d9" => :mavericks
-    sha256 "f64434f826e389500f0cf6fd42d6b571d5bc596357ec2eee1d02590df5cb574a" => :mountain_lion
-  end
 
   depends_on "gmp"
 
@@ -30,10 +30,6 @@ class Php70Gmp < AbstractPhp70Extension
     system "make"
     prefix.install "modules/gmp.so"
     write_config_file if build.with? "config-file"
-  end
-
-  test do
-    shell_output("php -m").include?("gmp")
   end
 end
 

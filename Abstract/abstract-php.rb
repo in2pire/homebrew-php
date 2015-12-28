@@ -34,12 +34,11 @@ class AbstractPhp < Formula
     depends_on 'freetype'
     depends_on 'gettext'
     depends_on 'gmp' => :optional
-    depends_on 'tidy-html5' if build.include?('with-tidy')
     depends_on 'icu4c'
     depends_on 'imap-uw' if build.include?('with-imap')
     depends_on 'jpeg'
     depends_on 'libpng'
-    depends_on 'libxml2'
+    depends_on 'libxml2' if build.include?('with-homebrew-libxml2') || MacOS.version < :lion || MacOS.version >= :el_capitan
     depends_on 'unixodbc'
     depends_on 'readline'
 
@@ -66,6 +65,7 @@ class AbstractPhp < Formula
     option 'with-homebrew-curl', 'Include Curl support via Homebrew'
     option 'with-homebrew-libressl', 'Include LibreSSL instead of OpenSSL via Homebrew'
     option 'with-homebrew-libxslt', 'Include LibXSLT support via Homebrew'
+    option 'with-homebrew-libxml2', 'Include Libxml2 support via Homebrew'
     option 'with-imap', 'Include IMAP extension'
     option 'with-libmysql', 'Include (old-style) libmysql support instead of mysqlnd'
     option 'with-mssql', 'Include MSSQL-DB support'
@@ -73,12 +73,12 @@ class AbstractPhp < Formula
     option 'with-pdo-oci', 'Include Oracle databases (requries ORACLE_HOME be set)'
     option 'with-phpdbg', 'Enable building of the phpdbg SAPI executable (PHP 5.4 and above)'
     option 'with-thread-safety', 'Build with thread safety'
-    option 'with-tidy', 'Include Tidy support'
     option 'without-apache', 'Disable building of shared Apache 2.0 Handler module'
     option 'without-bz2', 'Build without bz2 support'
     option 'without-fpm', 'Disable building of the fpm SAPI executable'
     option 'without-ldap', 'Build without LDAP support'
     option 'without-mysql', 'Remove MySQL/MariaDB support'
+    option 'without-legacy-mysql', 'Do not include the deprecated mysql_ functions'
     option 'without-pcntl', 'Build without Process Control support'
   end
 
@@ -203,7 +203,6 @@ INFO
       "--with-icu-dir=#{Formula['icu4c'].opt_prefix}",
       "--with-jpeg-dir=#{Formula['jpeg'].opt_prefix}",
       ("--with-kerberos=/usr" if OS.mac?),
-      "--with-libxml-dir=#{Formula['libxml2'].opt_prefix}",
       "--with-libedit",
       "--with-mhash",
       ("--with-ndbm=/usr" if OS.mac?),
@@ -216,6 +215,10 @@ INFO
       "--without-gmp",
       "--without-snmp",
     ]
+
+    if build.include?('with-homebrew-libxml2') || MacOS.version < :lion || MacOS.version >= :el_capitan
+      args << "--with-libxml-dir=#{Formula['libxml2'].opt_prefix}"
+    end
 
     # Build Apache module by default
     unless build.without? 'apache'
@@ -281,12 +284,12 @@ INFO
     if build.with? 'libmysql'
       args << "--with-mysql-sock=/tmp/mysql.sock"
       args << "--with-mysqli=#{HOMEBREW_PREFIX}/bin/mysql_config"
-      args << "--with-mysql=#{HOMEBREW_PREFIX}"
+      args << "--with-mysql=#{HOMEBREW_PREFIX}" unless build.without? 'legacy-mysql' || php_version.start_with?('7')
       args << "--with-pdo-mysql=#{HOMEBREW_PREFIX}"
     elsif build.with? 'mysql'
       args << "--with-mysql-sock=/tmp/mysql.sock"
       args << "--with-mysqli=mysqlnd"
-      args << "--with-mysql=mysqlnd"
+      args << "--with-mysql=mysqlnd" unless build.without? 'legacy-mysql' || php_version.start_with?('7')
       args << "--with-pdo-mysql=mysqlnd"
     end
 
@@ -332,10 +335,6 @@ INFO
       args << "--enable-phpdbg"
     end
 
-    if build.with? 'tidy'
-      args << "--with-tidy=#{Formula['tidy-html5'].opt_prefix}"
-    end
-
     if build.with? 'thread-safety'
       args << "--enable-maintainer-zts"
     end
@@ -356,11 +355,6 @@ INFO
 
     inreplace 'Makefile' do |s|
       s.change_make_var! "EXTRA_LIBS", "\\1 -lstdc++"
-    end
-
-    if build.with? 'tidy'
-      # API compatibility with tidy-html5 v5.0.0 - https://github.com/htacg/tidy-html5/issues/224
-      inreplace 'ext/tidy/tidy.c', 'buffio.h', 'tidybuffio.h'
     end
 
     system "make"
@@ -514,6 +508,12 @@ INFO
       EOS
     end
 
+    if build.include?('with-tidy')
+      s << <<-EOS.undent
+        Tidy has moved to its own formula, please install it by running: brew install php#{php_version_path}-tidy
+      EOS
+    end
+
     if build_fpm?
       s << <<-EOS.undent
         ✩✩✩✩ FPM ✩✩✩✩
@@ -545,7 +545,7 @@ INFO
     s.join "\n"
   end
 
-  def test
+  test do
     system "#{bin}/php -i"
 
     if build_fpm?

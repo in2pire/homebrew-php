@@ -2,13 +2,20 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php54Zmq < AbstractPhp54Extension
   init
-  homepage 'http://php.zero.mq/'
-  url 'https://github.com/mkoppanen/php-zmq/archive/1.1.2.tar.gz'
-  sha1 '735d8c826edffcc96aa75b33d9aa13dbe57f2059'
-  head 'https://github.com/mkoppanen/php-zmq.git'
+  desc "ZeroMQ for PHP"
+  homepage "http://php.zero.mq/"
+  url "https://github.com/mkoppanen/php-zmq/archive/1.1.2.tar.gz"
+  sha256 "2ae77e90e0ed8112b11e838d6303940bbcae39e8d37683632a299db881bdb217"
+  head "https://github.com/mkoppanen/php-zmq.git"
 
-  depends_on 'pkg-config' => :build
-  depends_on 'zeromq'
+  bottle do
+    sha256 "30edea88c05a521ab749c9b3a203c6298371434f0625ae38825c6ed9c290c7e3" => :el_capitan
+    sha256 "4c3cfd52f0d702e8b76636d4a34d9ef2c1c2dbbf7dc293933040b7b81c7a8895" => :yosemite
+    sha256 "b1d48c328b120a64deafc0e38390798c4f43ee2f58b7ab534ba49eb973a5d268" => :mavericks
+  end
+
+  depends_on "pkg-config" => :build
+  depends_on "zeromq"
 
   def install
     ENV.universal_binary if build.universal?

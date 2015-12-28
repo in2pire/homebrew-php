@@ -1,22 +1,24 @@
-require 'formula'
 require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php53Redland < AbstractPhp53Extension
   init
-  homepage 'http://librdf.org'
-  url 'http://download.librdf.org/source/redland-bindings-1.0.17.1.tar.gz'
-  sha256 'ff72b587ab55f09daf81799cb3f9d263708fad5df7a5458f0c28566a2563b7f5'
+  desc "Redland RDF Libraries for PHP"
+  homepage "http://librdf.org"
+  url "http://download.librdf.org/source/redland-bindings-1.0.17.1.tar.gz"
+  sha256 "ff72b587ab55f09daf81799cb3f9d263708fad5df7a5458f0c28566a2563b7f5"
 
   bottle do
-    sha1 "bfd3b0035add6db855102234339b1dfd8f0dffa0" => :yosemite
-    sha1 "19f385bebe9d397b7d6816cbeee7300a1a3f6a41" => :mavericks
-    sha1 "20a279b9541218a18e208284c043d7ea05592732" => :mountain_lion
+    cellar :any
+    revision 1
+    sha256 "5a6db9f445e2303ad53734204dbcdd25136b0c3d1716295a4beb4325e6bb3a35" => :el_capitan
+    sha256 "29ef1ae3fb3ee9ec68d7bb584172b397f78b9c7f225b9daecf1dd6217d29e105" => :yosemite
+    sha256 "f253a2005e2154887b7d5604066739d5e29f141a1cc37cc58effaa506e4bcad3" => :mavericks
   end
 
-  depends_on 'pkg-config' => :build
-  depends_on 'redland'
-  depends_on 'raptor'
-  depends_on 'rasqal'
+  depends_on "pkg-config" => :build
+  depends_on "redland"
+  depends_on "raptor"
+  depends_on "rasqal"
 
   fails_with :llvm do
     build 2334

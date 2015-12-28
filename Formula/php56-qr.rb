@@ -2,9 +2,16 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php56Qr < AbstractPhp56Extension
   init
-  homepage 'http://pecl.opendogs.org/'
-  url 'http://pecl.opendogs.org/get/qr-0.4.0.tgz'
-  sha1 '08caebd0c78e78f64782ef9ff064cbf1ece967c8'
+  desc "QR Code generator extension."
+  homepage "http://pecl.opendogs.org/"
+  url "http://pecl.opendogs.org/get/qr-0.4.0.tgz"
+  sha256 "0d628741d77f34207a00cc0b84967ecf4ccb38f03e65105573ecfead8c76f114"
+
+  bottle do
+    sha256 "42fb6007198bdb323307560a3f38afe9ca06b41c1bd4d1fde54d104415dd6dcd" => :el_capitan
+    sha256 "3e7ef88f84c2afdaa462f0fdd812051bcbc52ee752ddaafdb8e5281d0d77b10a" => :yosemite
+    sha256 "5cfe935ef48aaa7397241388cdc9268fd466f04a768f168015e3b6421afcc314" => :mavericks
+  end
 
   depends_on "zlib"
 
@@ -18,7 +25,7 @@ class Php56Qr < AbstractPhp56Extension
     safe_phpize
     system "./configure", "--prefix=#{prefix}",
                           "--enable-qr", "--enable-qr-gd", "--with-qr-tiff=#{HOMEBREW_PREFIX}/opt/zlib"
-                          phpconfig
+    phpconfig
     system "make"
     prefix.install "modules/qr.so"
     write_config_file if build.with? "config-file"

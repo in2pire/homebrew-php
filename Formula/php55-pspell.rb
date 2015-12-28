@@ -2,16 +2,17 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php55Pspell < AbstractPhp55Extension
   init
+  desc "Extension to check the spelling"
   homepage "http://php.net/manual/en/book.pspell.php"
-  url      PHP_SRC_TARBALL
-  sha256   PHP_CHECKSUM[:sha256]
-  version  PHP_VERSION
+  url PHP_SRC_TARBALL
+  sha256 PHP_CHECKSUM[:sha256]
+  version PHP_VERSION
 
   bottle do
-    revision 1
-    sha256 "4f5e837aa76036eb8c00e1c65854e7109abf650aef9d00c569b579efa28a6e20" => :yosemite
-    sha256 "a38144877def94a5ee396e5dc78fcffe29225c1b2d201ef4fce36dcf17945c30" => :mavericks
-    sha256 "4b2acf21f711a9edc5225a5836ce7dad2f875a83e15db881bb824a568273d0f7" => :mountain_lion
+    revision 3
+    sha256 "12150c3d7435d45f0f4d3520821cdd42f0a97012583784c844a6ae7aa8175afa" => :el_capitan
+    sha256 "0b0f20f56edff991648dc557e6d545a222de3d079ffa5d480b969e195a816f17" => :yosemite
+    sha256 "1cf312384c46b1be179316c126dab08a5f4aac1754d0922b4b06f34ce32e1d6d" => :mavericks
   end
 
   depends_on "aspell"
@@ -25,10 +26,9 @@ class Php55Pspell < AbstractPhp55Extension
     system "./configure", "--prefix=#{prefix}",
                           phpconfig,
                           "--disable-debug",
-                          "--with-pspell=#{Formula['aspell'].opt_prefix}"
+                          "--with-pspell=#{Formula["aspell"].opt_prefix}"
     system "make"
     prefix.install "modules/pspell.so"
     write_config_file if build.with? "config-file"
   end
 end
-

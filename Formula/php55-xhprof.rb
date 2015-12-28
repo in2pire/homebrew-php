@@ -2,19 +2,22 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php55Xhprof < AbstractPhp55Extension
   init
-  homepage 'https://github.com/facebook/xhprof'
-  url 'https://github.com/facebook/xhprof/archive/254eb24dcfa763c76c57b472093ebc4b81af2b7d.tar.gz'
-  sha1 'bab248d9a44a99515f96eb086bfa9d8932874451'
-  head 'https://github.com/facebook/xhprof.git'
-  version '254eb24'
+  desc "XHProf is a function-level hierarchical profiler for PHP and has a simple HTML based user interface."
+  homepage "https://github.com/facebook/xhprof"
+  url "https://github.com/facebook/xhprof/archive/254eb24dcfa763c76c57b472093ebc4b81af2b7d.tar.gz"
+  sha256 "c891ce1bf6730c67bd1dae6fb9b428e3adaf9c7b2008791199ba51a8556683ba"
+  head "https://github.com/facebook/xhprof.git"
+  version "254eb24"
 
   bottle do
-    sha1 "2bdd02714f35b1a4ea1270ec17344245de5d9d56" => :yosemite
-    sha1 "343f6bd9c0514c4b190d132b7e70afc6de003059" => :mavericks
-    sha1 "682e3e600b6df4aa06c413a2b1c5e11282c0c657" => :mountain_lion
+    cellar :any_skip_relocation
+    revision 1
+    sha256 "b3f5f02743d50d4d899e26a96274ef6ddd34be783114e532096eb32e59e423c7" => :el_capitan
+    sha256 "621f6d2ea7ba319e59ce9e68debaafdec151e471ad0856ca5f72054c9e9b574d" => :yosemite
+    sha256 "0b403d85dd5fa38bebf24985fbafb11f9747cd7610eac3a5ae038a507257238e" => :mavericks
   end
 
-  depends_on 'pcre'
+  depends_on "pcre"
 
   def install
     Dir.chdir "extension" do
@@ -27,7 +30,7 @@ class Php55Xhprof < AbstractPhp55Extension
       prefix.install "modules/xhprof.so"
     end
 
-    prefix.install %w(xhprof_html xhprof_lib)
+    prefix.install %w[xhprof_html xhprof_lib]
     write_config_file if build.with? "config-file"
   end
 end

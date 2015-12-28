@@ -2,17 +2,18 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php55Pcntl < AbstractPhp55Extension
   init
+  desc "Process Control support"
   homepage "http://php.net/manual/en/book.pcntl.php"
-  url      PHP_SRC_TARBALL
-  sha256   PHP_CHECKSUM[:sha256]
-  version  PHP_VERSION
+  url PHP_SRC_TARBALL
+  sha256 PHP_CHECKSUM[:sha256]
+  version PHP_VERSION
 
   bottle do
-    cellar :any
-    revision 1
-    sha256 "b3ceab47f323709c085e7453e5a61327521c7b1fbe868b5a58f332bde06c0364" => :yosemite
-    sha256 "18b680279e6e7146fce9f6225445d34bb9794c458bbbdf62fea3a32e061d4b92" => :mavericks
-    sha256 "12ba4db5cb4f189ced5590362300b57b10b804a61121d42e6a3a74810491f8e3" => :mountain_lion
+    cellar :any_skip_relocation
+    revision 3
+    sha256 "a981fb91a75efcbf7db9e1c70c78125831e785715c613ab45c473f043b209aee" => :el_capitan
+    sha256 "ed5465e21a7b8dca50c90d37253ab3760a0b6730edab0f07c0ae5ff367b3e787" => :yosemite
+    sha256 "a9fb984012991476cf647858fab678975990bc456e6650161cd525d008160c79" => :mavericks
   end
 
   def install
@@ -29,4 +30,3 @@ class Php55Pcntl < AbstractPhp55Extension
     write_config_file if build.with? "config-file"
   end
 end
-

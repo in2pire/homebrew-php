@@ -2,19 +2,20 @@ require File.expand_path("../../Abstract/abstract-php", __FILE__)
 
 class Php56 < AbstractPhp
   init
+  desc "PHP Version 5.6"
   include AbstractPhpVersion::Php56Defs
 
-  url     PHP_SRC_TARBALL
-  sha256  PHP_CHECKSUM[:sha256]
+  url PHP_SRC_TARBALL
+  sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
 
-  head    PHP_GITHUB_URL, :branch => PHP_BRANCH
+  head PHP_GITHUB_URL, :branch => PHP_BRANCH
 
   bottle do
-    revision 1
-    sha256 "a0b9a80941b0e18dfa5194338475c8d4cbc8b7e1482e12d0500289f4666a8502" => :yosemite
-    sha256 "4c95865f3590b7fb9103c0e14a5d736573445d6a6155490440c764cc06ef4337" => :mavericks
-    sha256 "321ea3a2ee4678512aeb942957d54580f4752f2f3e043512274ea86e4dfc2c92" => :mountain_lion
+    revision 4
+    sha256 "6684d991c5eef1ab9348d5ad3089aa8c39ed03d9d0c3002b8d037c97aee4fc96" => :el_capitan
+    sha256 "74ccedff66d644e6a4725c28d5aafad64f130ce22263cfd42446de3b65d80435" => :yosemite
+    sha256 "b43d293c973d51c6dc3372ea82e0a548833a3b64bf33f7b485884010cb144576" => :mavericks
   end
 
   def install_args

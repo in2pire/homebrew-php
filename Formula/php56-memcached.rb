@@ -2,15 +2,15 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php56Memcached < AbstractPhp56Extension
   init
-  homepage "http://pecl.php.net/package/memcached"
-  url "http://pecl.php.net/get/memcached-2.2.0.tgz"
+  desc "Memcached via libmemcached library"
+  homepage "https://pecl.php.net/package/memcached"
+  url "https://pecl.php.net/get/memcached-2.2.0.tgz"
   sha256 "17b9600f6d4c807f23a3f5c45fcd8775ca2e61d6eda70370af2bef4c6e159f58"
   head "https://github.com/php-memcached-dev/php-memcached.git"
 
   bottle do
-    sha256 "5c63b711de449b4452466c47ac766e3381ad8783647d0afaa1e9bac6f4ad8feb" => :yosemite
-    sha256 "9e788fe1e23ae0d22e1d833f53e922caad0ac018fc479fd9d4164a21b11417f4" => :mavericks
-    sha256 "acc7d08a5f8411b7d180acab8ba986c0548ee288f60b84b342d588e905181369" => :mountain_lion
+    revision 1
+    sha256 "72ae13bda2e508d7a288af462a4cd306810a82e2c56fc225dd884baaa1e0ef18" => :el_capitan
   end
 
   option "with-sasl", "Build with sasl support"
@@ -170,9 +170,4 @@ class Php56Memcached < AbstractPhp56Extension
       memcached.store_retry_count = 2
     EOS
   end
-
-  test do
-    shell_output("php -m").include?("memcached")
-  end
 end
-

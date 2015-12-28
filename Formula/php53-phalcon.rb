@@ -4,15 +4,15 @@ class Php53Phalcon < AbstractPhp53Extension
   init
   desc "A full-stack PHP framework"
   homepage "http://phalconphp.com/"
-  url "https://github.com/phalcon/cphalcon/archive/phalcon-v2.0.7.tar.gz"
-  sha256 "45d02149688cd66857d2414a1bbe1354164266a3f5dd8f77fa7fe6f238dacd4b"
+  url "https://github.com/phalcon/cphalcon/archive/phalcon-v2.0.9.tar.gz"
+  sha256 "3f06c2c140b502547920f83e4acb29e1da6261d22c6154ac40b3f81f09ee6b74"
   head "https://github.com/phalcon/cphalcon.git"
 
   bottle do
-    cellar :any
-    sha256 "39cdd42ab84331c7fb17a8fa159feef1b3f181bdc50d5b8e6b746518a9faa1ed" => :yosemite
-    sha256 "c8d8c7537ea6832cf518dfaeeeced59f277faaf09ff3f3e11b1479cb296b9689" => :mavericks
-    sha256 "f778fe3777ce0d42d0574f241e1a386ae849097f9b4f5e9cfc7e4190081cce07" => :mountain_lion
+    cellar :any_skip_relocation
+    sha256 "5561e198d3eb87123d36ac0ae9c1b176970e66b3a648ca8ccd936cdd050b5a54" => :el_capitan
+    sha256 "89c1230a4c80928f210bfa4d0f097cf73c9c96dbc43edfc0fc6530b71ce508a7" => :yosemite
+    sha256 "13e08228682e68d05a27209ac4e2f51e206019d6804e61d4556a093666ea00f5" => :mavericks
   end
 
   depends_on "pcre"
@@ -33,9 +33,5 @@ class Php53Phalcon < AbstractPhp53Extension
     system "make"
     prefix.install "modules/phalcon.so"
     write_config_file if build.with? "config-file"
-  end
-
-  test do
-    shell_output("php -m").include?("phalcon")
   end
 end

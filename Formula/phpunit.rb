@@ -2,15 +2,16 @@ require File.expand_path("../../Requirements/php-meta-requirement", __FILE__)
 require File.expand_path("../../Requirements/phar-requirement", __FILE__)
 
 class Phpunit < Formula
+  desc "PHPUnit is a programmer-oriented testing framework for PHP."
   homepage "http://phpunit.de"
-  url "https://phar.phpunit.de/phpunit-4.8.5.phar"
-  sha256 "ce39f98b1b5c17a7e19bb89d61f33bd72baa53406e97342acb2a7b2c340dbdb0"
+  url "https://phar.phpunit.de/phpunit-5.1.0.phar"
+  sha256 "83bf6154f7435f78495d6cbdce62db333dc86aa8032b3ed8370ed51fb351314d"
 
   bottle do
-    cellar :any
-    sha256 "9ba7d856c552c684681cee21410e8a08ee4798fc82ea9e99f00f54bbe6814fe8" => :yosemite
-    sha256 "04ce8609a32c8ebbc4b0702831d0d3cb47d2a5717cb312fd26cfba5bb696d7db" => :mavericks
-    sha256 "502343bca4c62dd2cced5b589e1d9ba51db64befd1e047ad335fc54e2ddc37d4" => :mountain_lion
+    cellar :any_skip_relocation
+    sha256 "a3eb9b6c32b1973627840993a16f217b8e3eb0efe807e2f45eefa29bf5de2464" => :el_capitan
+    sha256 "5a911444dcee51d7e45fdc8483814cf785e9da05e19f4ca4e179f69f9f765a05" => :yosemite
+    sha256 "5a911444dcee51d7e45fdc8483814cf785e9da05e19f4ca4e179f69f9f765a05" => :mavericks
   end
 
   def install

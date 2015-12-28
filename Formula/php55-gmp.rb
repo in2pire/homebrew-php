@@ -9,10 +9,10 @@ class Php55Gmp < AbstractPhp55Extension
   version PHP_VERSION
 
   bottle do
-    revision 1
-    sha256 "442c3bfe2527d4eb1f5600006a364297999ccd82884c34386cb18bdf289fd4eb" => :yosemite
-    sha256 "0f2f30075ec253548f4c9ebb8d3d846c5f945d2090422d4ce0b5bae0ac364544" => :mavericks
-    sha256 "b8e1bf49e99ff076d5d3ff6a4a2ffda62c62d6d2775bfd7222eb795977d6cbc1" => :mountain_lion
+    revision 2
+    sha256 "f0d50c7dcb0baeef2f68a2979c84090a1a51772faeaee7f8d074b6115721c4bc" => :el_capitan
+    sha256 "b8711978b7ecfcc815edfe2c9f1b93e5a0a986ef4ae89d906e1d490b87a45e44" => :yosemite
+    sha256 "7268d13c302d262eebe438997d4639be89992684a0a6fa7ca8f883fd38b00c63" => :mavericks
   end
 
   depends_on "gmp"
@@ -30,9 +30,5 @@ class Php55Gmp < AbstractPhp55Extension
     system "make"
     prefix.install "modules/gmp.so"
     write_config_file if build.with? "config-file"
-  end
-
-  test do
-    shell_output("php -m").include?("gmp")
   end
 end

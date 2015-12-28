@@ -2,6 +2,7 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php53Opcache < AbstractPhp53Extension
   init
+  desc "OPcache improves PHP performance"
   homepage "https://github.com/zend-dev/ZendOptimizerPlus"
   url "https://github.com/zendtech/ZendOptimizerPlus/archive/v7.0.5.tar.gz"
   sha256 "2654d9611e386cc59887d4e8cfba2c010ed4480c7c9c5094ad99fdcf858d94ee"
@@ -9,9 +10,11 @@ class Php53Opcache < AbstractPhp53Extension
   head "https://github.com/zendtech/ZendOptimizerPlus.git"
 
   bottle do
-    sha256 "eb7525b7fd7c405327875cfcc08d15c8c11206c2412d56d8d6122177a4343a02" => :yosemite
-    sha256 "7dc876a4d914017abc2c51a5fbea008da7b4cc59563ccd693bf7917031582db9" => :mavericks
-    sha256 "113e2d571cc0a4a60b2bc02dd33cf5e186f1d45bce80e97c017b3aa9f7f75b25" => :mountain_lion
+    cellar :any_skip_relocation
+    revision 1
+    sha256 "32f010cc6a07a68b69e7893667a75cbc59a43398838cddcb8d410827702fd893" => :el_capitan
+    sha256 "96fa030c46787e16e38674180a95a6c6ed11647c72becf764c33ac2cf34bedd2" => :yosemite
+    sha256 "bc0165eb5840f5c86d40372ff7a4284bcf5efde224a7ca3d970c5f88d57022d0" => :mavericks
   end
 
   depends_on "pcre"
@@ -207,9 +210,5 @@ class Php53Opcache < AbstractPhp53Extension
       ; Ensure conflicting APC is disabled
       apc.cache_by_default = false
     EOS
-  end
-
-  test do
-    shell_output("php -m").include?("OPcache")
   end
 end

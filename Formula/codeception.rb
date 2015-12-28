@@ -1,26 +1,25 @@
-require File.expand_path("../../Requirements/php-meta-requirement", __FILE__)
-require File.expand_path("../../Requirements/phar-requirement", __FILE__)
+require File.expand_path("../../Abstract/abstract-php-phar", __FILE__)
 
-class Codeception < Formula
-  desc "PHP Testing Framework designed to work just out of the box."
+class Codeception < AbstractPhpPhar
+  init
+  desc "Testing Framework designed to work just out of the box"
   homepage "http://codeception.com/quickstart"
-  url "http://codeception.com/releases/2.1.2/codecept.phar"
-  sha256 "8a8fe5c4ba2582bcce3c4435f7d3e92eb08f51094f12a97017646d9c8ea3cdf4"
+  url "http://codeception.com/releases/2.1.5/codecept.phar"
+  sha256 "cb93a37b4c0db709971af18c5358e36deafe490c69edf14e86d0178335540d1d"
 
   bottle do
-    cellar :any
-    sha256 "d92fa3ed6cd96904ae352d23a8c5026a06f41ce7c265f864f8f8963eca252e5c" => :yosemite
-    sha256 "f3f481e26a2a392932812cfeeb57c507c7655d1a98f90d4b474b757ee0f94b62" => :mavericks
-    sha256 "7a10d2f42850f7d7733d17806feaf0b0bc4fd212dc6556e61291cd8ea7a276e3" => :mountain_lion
+    cellar :any_skip_relocation
+    sha256 "b7a59cdc8ede37702ae34e617d34a2733aae04b12b9a35c89040962eaa7aed1f" => :el_capitan
+    sha256 "b11a87bd458cb34532ba14be9af8b86774ffd0e4f121f99885aca425f8f93b45" => :yosemite
+    sha256 "f195ed3121a6744fc0900cc9d450cb17a41cb24f9d6a9cde17bcf37ee84c80f7" => :mavericks
   end
 
-  def install
-    mv "codecept.phar", "codecept-#{version}.phar"
-    libexec.install "codecept-#{version}.phar"
-    sh = libexec + "codecept"
-    sh.write("#!/usr/bin/env bash\n\n/usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off #{libexec}/codecept-#{version}.phar $*")
-    chmod 0755, sh
-    bin.install_symlink sh
+  def phar_file
+    "codecept.phar"
+  end
+
+  def phar_bin
+    "codecept"
   end
 
   def caveats; <<-EOS.undent

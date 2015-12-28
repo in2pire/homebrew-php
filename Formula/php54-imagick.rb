@@ -2,28 +2,20 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php54Imagick < AbstractPhp54Extension
   init
-  homepage 'http://pecl.php.net/package/imagick'
-  url 'http://pecl.php.net/get/imagick-3.1.2.tgz'
-  sha1 '7cee88bc8f6f178165c9d43e302d99cedfbb3dff'
-  head 'https://svn.php.net/repository/pecl/imagick/trunk/'
-  revision 1
+  desc "Provides a wrapper to the ImageMagick library."
+  homepage "https://pecl.php.net/package/imagick"
+  url "https://pecl.php.net/get/imagick-3.3.0.tgz"
+  sha256 "bd69ebadcedda1d87592325b893fa78a5710a0ca7307f8e18c5e593949b1db2d"
+  head "https://github.com/mkoppanen/imagick.git"
 
   bottle do
-    sha256 "7098323019d86ef8d250ffb7a3d46db6c24e5d9305f287f09fccf23038a2e412" => :yosemite
-    sha256 "ce33ba00d36518ab2efcdcd9111b10eec85649d21e767eda6597fa3c8d55c4df" => :mavericks
-    sha256 "03153e7e4c8dd46d3ad38c567f188c509cbd678b87dd52ff9a73c5da62222a80" => :mountain_lion
+    sha256 "4295916f3aad15708d14d07592ebd1cced805af3c6e83a05fd5bb0cfcea6566e" => :el_capitan
+    sha256 "e4368d84a00e6ad402a23bfb15d6f93643a765c17c108cd41bc76046d63011bd" => :yosemite
+    sha256 "6b69b5c2ce39ff3f2cf4107f9a4ba9ed2c47be8a65541edfeb83cfe5497f89f9" => :mavericks
   end
 
-  depends_on 'pkg-config' => :build
-  depends_on 'imagemagick'
-
-  # Rationale: Fix for the header file MagickWand.h
-  #     could not be located error during ./configure
-  #
-  # Original error message:
-  #     checking for MagickWand.h header file...
-  #     configure: error: Cannot locate header file MagickWand.h
-  patch :DATA
+  depends_on "pkg-config" => :build
+  depends_on "imagemagick"
 
   def install
     Dir.chdir "imagick-#{version}" unless build.head?
@@ -32,25 +24,10 @@ class Php54Imagick < AbstractPhp54Extension
 
     safe_phpize
     system "./configure", "--prefix=#{prefix}",
-                          "--with-imagick=#{Formula['imagemagick'].opt_prefix}",
+                          "--with-imagick=#{Formula["imagemagick"].opt_prefix}",
                           phpconfig
     system "make"
     prefix.install "modules/imagick.so"
     write_config_file if build.with? "config-file"
   end
 end
-
-__END__
-diff --git a/imagick-3.1.0RC2/config.m4 b/imagick-3.1.0RC2/config.m4
-index 6caa29a..1c6cdfb 100644
---- a/imagick-3.1.2/config.m4
-+++ b/imagick-3.1.2/config.m4
-@@ -60,6 +60,8 @@ if test $PHP_IMAGICK != "no"; then
- 
-     if test -r $WAND_DIR/include/ImageMagick/wand/MagickWand.h; then
-       AC_MSG_RESULT(found in $WAND_DIR/include/ImageMagick/wand/MagickWand.h)
-+    elif test -r $WAND_DIR/include/ImageMagick-6/wand/MagickWand.h; then
-+      AC_MSG_RESULT(found in $WAND_DIR/include/ImageMagick-6/wand/MagickWand.h)
-     else
-       AC_MSG_ERROR(Cannot locate header file MagickWand.h)
-     fi

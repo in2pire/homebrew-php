@@ -1,35 +1,22 @@
-require File.expand_path("../../Requirements/php-meta-requirement", __FILE__)
-require File.expand_path("../../Requirements/composer-requirement", __FILE__)
+require File.expand_path("../../Abstract/abstract-php-phar", __FILE__)
 
-class Composer < Formula
+class Composer < AbstractPhpPhar
+  init
+  desc "Dependency Manager for PHP"
   homepage "http://getcomposer.org"
+  url "http://getcomposer.org/download/1.0.0-alpha11/composer.phar"
+  version "1.0.0-alpha11"
+  sha256 "47347f16d366145eafb45d2e800012dc80cb8fc08d1d299849825c51465381ac"
   head "https://getcomposer.org/composer.phar"
-  url "http://getcomposer.org/download/1.0.0-alpha10/composer.phar"
-  sha256 "9f2c7d0364bc743bcde9cfe1fe84749e5ac38c46d47cf42966ce499135fd4628"
-  version "1.0.0-alpha10"
 
-  depends_on PhpMetaRequirement
-  depends_on ComposerRequirement
-
-  def install
-    libexec.install "composer.phar"
-    sh = libexec + "composer"
-    sh.write("#!/usr/bin/env bash\n\nexec /usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off #{libexec}/composer.phar \"$@\"")
-    chmod 0755, sh
-    bin.install_symlink sh
-    bin.install_symlink libexec + "composer.phar"
+  bottle do
+    cellar :any_skip_relocation
+    sha256 "59113669748f1c9803d3e618428f8b557edbc7df70c235996b01a224fca0a98c" => :el_capitan
+    sha256 "9c53a17d3f881673d2a101d4bd0b184ca7ef90bf7bad0ba2411d958b421d1442" => :yosemite
+    sha256 "47258fd64cd1c1d3d1fbcdeb95f826de4cc6de4b717192261a939c6fe8b62c57" => :mavericks
   end
 
   test do
     system "composer", "--version"
-  end
-
-  def caveats; <<-EOS.undent
-    Verify your installation by running:
-      "composer --version".
-
-    You can read more about composer and packagist by running:
-      "brew home composer".
-    EOS
   end
 end

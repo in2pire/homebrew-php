@@ -2,12 +2,21 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php54Apc < AbstractPhp54Extension
   init
-  homepage 'http://pecl.php.net/package/apc'
-  url 'http://pecl.php.net/get/APC-3.1.13.tgz'
-  sha1 'cafd6ba92ac1c9f500a6c1e300bbe8819daddfae'
-  head 'https://svn.php.net/repository/pecl/apc/trunk/'
+  desc "Alternative PHP cache"
+  homepage "https://pecl.php.net/package/apc"
+  url "https://pecl.php.net/get/APC-3.1.13.tgz"
+  sha256 "5ef8ba07729e72946e95951672a5378bed98cb5a294e79bf0f0a97ac62829abd"
+  head "https://svn.php.net/repository/pecl/apc/trunk/"
 
-  depends_on 'pcre'
+  bottle do
+    cellar :any_skip_relocation
+    revision 1
+    sha256 "8aa922f5df52fd402f89829b5512df93794243dc907d1b352db8104fb63d0bc1" => :el_capitan
+    sha256 "810fb3ca352857b8dfec0956a02d19aea2f5c5b5d6ed848ce3b9a753587a345a" => :yosemite
+    sha256 "65f120d04ea19ea5b8da40517cd3f382306c1cee5eb167b61b353d4778deccf9" => :mavericks
+  end
+
+  depends_on "pcre"
 
   def install
     Dir.chdir "APC-#{version}" unless build.head?
@@ -19,7 +28,7 @@ class Php54Apc < AbstractPhp54Extension
                           phpconfig,
                           "--enable-apc-pthreadmutex"
     system "make"
-    prefix.install %w(modules/apc.so apc.php)
+    prefix.install %w[modules/apc.so apc.php]
     write_config_file if build.with? "config-file"
   end
 

@@ -4,16 +4,17 @@ class Php70PdoPgsql < AbstractPhp70Extension
   init
   desc "A unified PostgreSQL driver for PDO"
   homepage "https://github.com/php/php-src/tree/master/ext/pdo_pgsql"
+  bottle do
+    cellar :any
+    revision 9
+    sha256 "f879555b7d3bd7e6405346e19eb78b520adaee5a6f0f377577509d3fe75eb3b6" => :el_capitan
+    sha256 "6c313f9bf0c274956b282b54146f6f24b58b5e2899033930f6dd4a9d6d2d2f97" => :yosemite
+    sha256 "9e76ddd83a1074ae32e0120c0fd15f9598ec1473b79a97099f4805e5b7a6a20a" => :mavericks
+  end
+
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-
-  bottle do
-    revision 1
-    sha256 "cc3cbe287760c43598992aefa2a7a1b5bbb9477cc99ba6a0732a2e8c32d88516" => :yosemite
-    sha256 "05471fa7d3f9124e922e58c2678ea919d27e447c246d702d217375d8b70e1961" => :mavericks
-    sha256 "3d4e6d0cdb2e2c88858c0c5f4930b98170e41a43498a95fed6f78f3fdc4700be" => :mountain_lion
-  end
 
   depends_on "postgresql"
 
@@ -31,10 +32,6 @@ class Php70PdoPgsql < AbstractPhp70Extension
     system "make"
     prefix.install "modules/pdo_pgsql.so"
     write_config_file if build.with? "config-file"
-  end
-
-  test do
-    shell_output("php -m").include?("pdo_pgsql")
   end
 end
 

@@ -2,8 +2,6 @@ class AbstractPhpVersion < Formula
   module PhpdbgDefs
     PHPDBG_SRC_TARBAL = 'https://github.com/krakjoe/phpdbg/archive/v0.3.2.tar.gz'
     PHPDBG_CHECKSUM   = {
-                        :md5    => '84255abff00fb31e338d03564c3cc4e4',
-                        :sha1   => 'c57174ab235ec69997e1a37e6d2afe3e4edfb749',
                         :sha256 => 'feab6e29ef9a490aa53332fe014e8026d89d970acc5105f37330b2f31e711bbd',
                       }
   end
@@ -31,35 +29,35 @@ class AbstractPhpVersion < Formula
   end
 
   module Php55Defs
-    PHP_SRC_TARBALL = 'https://php.net/get/php-5.5.29.tar.bz2/from/this/mirror'
+    PHP_SRC_TARBALL = 'https://php.net/get/php-5.5.30.tar.bz2/from/this/mirror'
     PHP_GITHUB_URL  = 'https://github.com/php/php-src.git'
-    PHP_VERSION     = '5.5.29'
+    PHP_VERSION     = '5.5.30'
     PHP_BRANCH      = 'PHP-5.5'
 
     PHP_CHECKSUM    = {
-                        :sha256 => 'fbcee579ecc77cad6960a541116aee669cf145c2cd9a54bf60503a870843b946',
+                        :sha256 => 'e7332a713cecdd1cb44a1b1336739885c9789f633f0f51236b25e48ab03c3b29',
                       }
   end
 
   module Php56Defs
-    PHP_SRC_TARBALL = 'https://php.net/get/php-5.6.13.tar.bz2/from/this/mirror'
+    PHP_SRC_TARBALL = 'https://php.net/get/php-5.6.16.tar.bz2/from/this/mirror'
     PHP_GITHUB_URL  = 'https://github.com/php/php-src.git'
-    PHP_VERSION     = '5.6.13'
+    PHP_VERSION     = '5.6.16'
     PHP_BRANCH      = 'PHP-5.6'
 
     PHP_CHECKSUM    = {
-                        :sha256 => '6358837c9cbab41b91ede59dbf0670ae0fb925a1369ecbc1a44a27212420f893',
+                        :sha256 => '4fe6f40964c1bfaba05fc144ba20a2cdad33e11685f4f101ea5a48b98bbcd2ae',
                       }
   end
 
   module Php70Defs
-    PHP_SRC_TARBALL = 'https://downloads.php.net/~ab/php-7.0.0RC2.tar.bz2'
+    PHP_SRC_TARBALL = 'https://php.net/get/php-7.0.1.tar.bz2/from/this/mirror'
     PHP_GITHUB_URL  = 'https://github.com/php/php-src.git'
-    PHP_VERSION     = '7.0.0-rc.2'
-    PHP_BRANCH      = 'PHP-7.0.0'
+    PHP_VERSION     = '7.0.1'
+    PHP_BRANCH      = 'PHP-7.0.1'
 
     PHP_CHECKSUM    = {
-                        :sha256 => '0b047f1f52eb9236d5a2b4b3112fdd269d00a2ec4d3f6269865a917b80786d57',
+                        :sha256 => '04ce3bd1da001397b342c2219a5093be9ecbbc97f022e1e6a0ec2fedc3d93e42',
                       }
   end
 end

@@ -7,12 +7,12 @@ class Php55Tidy < AbstractPhp55Extension
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-  revision 2
 
   bottle do
-    sha256 "bd3093cbf043012a46cca8ba871751d749c7f2529a9ce74f3fefe8562b13a799" => :yosemite
-    sha256 "2a53d587e7e37e1eae13f028a55207d75d34c35034cc810f01b5c95743e49f58" => :mavericks
-    sha256 "fc627efc83dd41cf4dd4ee2f76dc5a86b85a2590e8c915833ed8f4f252dd223e" => :mountain_lion
+    revision 2
+    sha256 "0c65895431ec0e9188b1cc30695f41ae781bf47c11ef2cda3529f75ffc58d2b4" => :el_capitan
+    sha256 "52613e434c28d85b38b781f8c5af9905c12a8f493eeff43b37183a354bfda160" => :yosemite
+    sha256 "9a3183e45291a38299d342752bd00a7eafa38f1f2e60a4af67f95ea0a15cf875" => :mavericks
   end
 
   depends_on "tidy-html5"

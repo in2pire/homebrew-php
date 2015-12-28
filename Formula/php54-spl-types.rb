@@ -2,9 +2,17 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php54SplTypes < AbstractPhp54Extension
   init
-  homepage 'http://pecl.php.net/package/SPL_Types'
-  url 'http://pecl.php.net/get/SPL_Types-0.4.0.tgz'
-  sha1 '14c2ccd34c5f4fc98b5af4a62267bc7fd71c9546'
+  desc "SPL Types is a collection of special typehandling classes."
+  homepage "https://pecl.php.net/package/SPL_Types"
+  url "https://pecl.php.net/get/SPL_Types-0.4.0.tgz"
+  sha256 "b44101401b2664822fd17e6f491d912203496108ff9d0b86b043bff67c5f724f"
+
+  bottle do
+    cellar :any_skip_relocation
+    sha256 "6d1baad8ddcaf4ea2f5ede1460174dcc29e1f6b518478f2f0020abdef68c19d8" => :el_capitan
+    sha256 "d202ec249b3f8ae2cb9810a97c6aeeb6798d369c6a48882b043a13331f45cf4a" => :yosemite
+    sha256 "be66a4d148f9855fba42e215417187383b515af25fd9478e127c2dcab3796fb1" => :mavericks
+  end
 
   def install
     Dir.chdir "SPL_Types-#{version}"
@@ -19,6 +27,6 @@ class Php54SplTypes < AbstractPhp54Extension
   end
 
   def extension
-    'spl_types'
+    "spl_types"
   end
 end

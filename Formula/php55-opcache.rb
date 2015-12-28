@@ -2,17 +2,18 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php55Opcache < AbstractPhp55Extension
   init
+  desc "OPcache improves PHP performance"
   homepage "http://php.net/manual/en/book.opcache.php"
-  url      PHP_SRC_TARBALL
-  sha256   PHP_CHECKSUM[:sha256]
-  version  PHP_VERSION
+  url PHP_SRC_TARBALL
+  sha256 PHP_CHECKSUM[:sha256]
+  version PHP_VERSION
 
   bottle do
-    cellar :any
-    revision 1
-    sha256 "5aa47c6c2cc426491e6613deb171e9dfa4d33c7b30c5be8e4d61294ebe85db7e" => :yosemite
-    sha256 "982b8b9e50ddcbf9e8753fa1739c7004203273c3dba478c7488763fb8fe60044" => :mavericks
-    sha256 "17743fa1feceef5f6be8e4ccdd9b369298f63cd9f8d5316a46a7c955aa4fa812" => :mountain_lion
+    cellar :any_skip_relocation
+    revision 3
+    sha256 "b1ac8a9eb1cdffdd8885b65eb27c42051369bcac4731edda58d046a3a7a2da4b" => :el_capitan
+    sha256 "857301e1c229609095b073cb92e0a879bf5a7462d6cbff900445eda8104840ab" => :yosemite
+    sha256 "b55618d11387b6223aa4c813dd7f1b5e57637fa30e5625ce76ae97c4532e8985" => :mavericks
   end
 
   depends_on "pcre"
@@ -32,10 +33,6 @@ class Php55Opcache < AbstractPhp55Extension
     system "make"
     prefix.install "modules/opcache.so"
     write_config_file if build.with? "config-file"
-  end
-
-  test do
-    shell_output("php -m").include?("Zend OPcache")
   end
 
   def config_file
@@ -216,4 +213,3 @@ class Php55Opcache < AbstractPhp55Extension
     EOS
   end
 end
-

@@ -9,10 +9,10 @@ class Php56Snmp < AbstractPhp56Extension
   version PHP_VERSION
 
   bottle do
-    revision 1
-    sha256 "c0020540ba06493a24a463b8c77e3e14ec8933f8c65b680c8e7feac1f65e90e9" => :yosemite
-    sha256 "5fba7b8c73c266c5900897b509ada9c7d3836a276cbd5791fd5372b3313b0d08" => :mavericks
-    sha256 "0499835fe458b995fe3dfbf14ff703804a07c302f5d12bc3ed78f1632f802f7c" => :mountain_lion
+    revision 4
+    sha256 "ee0091ff48f9c74ad726ab0394dcd603d670aa8e00244116027afc3ffa3b8f27" => :el_capitan
+    sha256 "9db5a21e5dde80bbfb8a8dd60c2a953a6357d861196a60003771236648ca9fec" => :yosemite
+    sha256 "008fe429f347a538cb8b4faddd266e73b5a009e98361a5da76c9bfd375fda3af" => :mavericks
   end
 
   depends_on "net-snmp"
@@ -30,9 +30,5 @@ class Php56Snmp < AbstractPhp56Extension
     system "make"
     prefix.install "modules/snmp.so"
     write_config_file if build.with? "config-file"
-  end
-
-  test do
-    shell_output("php -m").include?("snmp")
   end
 end

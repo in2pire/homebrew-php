@@ -2,16 +2,18 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php56PdoPgsql < AbstractPhp56Extension
   init
+  desc "A unified PostgreSQL driver for PDO"
   homepage "https://github.com/php/php-src/tree/master/ext/pdo_pgsql"
-  url      PHP_SRC_TARBALL
-  sha256   PHP_CHECKSUM[:sha256]
-  version  PHP_VERSION
+  url PHP_SRC_TARBALL
+  sha256 PHP_CHECKSUM[:sha256]
+  version PHP_VERSION
 
   bottle do
-    revision 1
-    sha256 "d6c76c7064abf8c9a698bdaecc1356ce46253b9152fd560bb3c193124dc3b526" => :yosemite
-    sha256 "f20f843bab83533fb11a8a9a33aec4cbee23b3f91f3bfe7c2dd6484a70ab1aee" => :mavericks
-    sha256 "f07cd45451816fb455fd9cb631411cafc4739c1fac545a3d75df6cb510a77a77" => :mountain_lion
+    cellar :any
+    revision 4
+    sha256 "a238b3179bb4a95b7bbffac193f5fc51da541d71f9cf34efd028d6ed9d9b2412" => :el_capitan
+    sha256 "d4b1a666bbb6fe6952ecd6fcbe65d567a80fbef9dae013699caa8989ec442e9e" => :yosemite
+    sha256 "d1342c46844c88f9cec8e03f54ea8aaad93fb9d75295d69ba941e9d6062e7ed6" => :mavericks
   end
 
   depends_on "postgresql"
@@ -26,10 +28,9 @@ class Php56PdoPgsql < AbstractPhp56Extension
     ENV.universal_binary if build.universal?
 
     safe_phpize
-    system "./configure", "--prefix=#{prefix}", "--with-pdo-pgsql=#{Formula['postgresql'].prefix}", phpconfig
+    system "./configure", "--prefix=#{prefix}", "--with-pdo-pgsql=#{Formula["postgresql"].prefix}", phpconfig
     system "make"
     prefix.install "modules/pdo_pgsql.so"
     write_config_file if build.with? "config-file"
   end
 end
-

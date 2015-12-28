@@ -1,0 +1,35 @@
+language: objective-c
+matrix:
+  include:
+    - env: OSX=10.11
+      os: osx
+      osx_image: osx10.11
+      rvm: system
+    - env: OSX=10.10
+      os: osx
+      osx_image: xcode7
+      rvm: system
+    - env: OSX=10.9
+      os: osx
+      osx_image: beta-xcode6.2
+      rvm: system
+
+before_install:
+  - if [ -f ".git/shallow" ]; then travis_retry git fetch --unshallow; fi
+  - sudo rm -rf $(brew --repo)/Library/Taps/homebrew/homebrew-php/
+  - sudo chown -R $USER $(brew --repo)
+  - brew tap homebrew/dupes
+  - brew tap homebrew/versions
+  - brew update
+  - ln -s $PWD $(brew --repo)/Library/Taps/homebrew/homebrew-php
+  - cd $(brew --repo)/Library/Taps/homebrew/homebrew-php
+  - export TRAVIS_BUILD_DIR="$(brew --repo)/Library/Taps/homebrew/homebrew-php"
+  - env | grep TRAVIS_
+
+script:
+  - brew test-bot --tap=homebrew/php
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always

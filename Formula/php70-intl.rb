@@ -4,16 +4,16 @@ class Php70Intl < AbstractPhp70Extension
   init
   desc "A wrapper for the ICU library"
   homepage "http://php.net/manual/en/book.intl.php"
+  bottle do
+    revision 9
+    sha256 "fcff33153d3f1b03350e54d132bfbd2fef3eb76fbaa885a8c8a7cd871ca7662f" => :el_capitan
+    sha256 "8196258184327682e929de29cca6d3c540b5a8076cd8132479cb8953317b7b71" => :yosemite
+    sha256 "2baf713ab44012a0b4d9d8d86267fff17314e9e0413f16ed7ba0599158fc8902" => :mavericks
+  end
+
   url PHP_SRC_TARBALL
   sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
-
-  bottle do
-    revision 1
-    sha256 "c497d6a2d7aac26f1a824cb176a698ea44e6220f45e18510e2d0135348f7bdb6" => :yosemite
-    sha256 "5aef4229d85895d96978a6dfd2b92f9649444c1a5c0d36bf77c45d263a022a7a" => :mavericks
-    sha256 "d61bef5d97e0e8fb033b82599566808ee00b9809473a509795c4b8c88075cedf" => :mountain_lion
-  end
 
   depends_on "icu4c"
 
@@ -43,10 +43,5 @@ class Php70Intl < AbstractPhp70Extension
       ;intl.error_level = E_WARNING
     EOS
   end
-
-  test do
-    shell_output("php -m").include?("intl")
-  end
 end
-
 

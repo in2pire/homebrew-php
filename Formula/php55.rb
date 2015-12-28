@@ -2,20 +2,21 @@ require File.expand_path("../../Abstract/abstract-php", __FILE__)
 
 class Php55 < AbstractPhp
   init
+  desc "PHP Version 5.5"
   include AbstractPhpVersion::Php55Defs
   include AbstractPhpVersion::PhpdbgDefs
 
-  url     PHP_SRC_TARBALL
-  sha256  PHP_CHECKSUM[:sha256]
+  url PHP_SRC_TARBALL
+  sha256 PHP_CHECKSUM[:sha256]
   version PHP_VERSION
 
-  head    PHP_GITHUB_URL, :branch => PHP_BRANCH
+  head PHP_GITHUB_URL, :branch => PHP_BRANCH
 
   bottle do
-    revision 1
-    sha256 "2d50ff519037e1fd18fe6edf6503e65593d3d55e787092d9dc6a618c4fe09376" => :yosemite
-    sha256 "65c8d26d493cea3852a9ba8ad272f89a0057cd9bafe3a9f87006b96f9bcc4309" => :mavericks
-    sha256 "559833c75d442cbe5727a6883c474ae5bacd57e0f75d8faae9aee3679b5c84b9" => :mountain_lion
+    revision 2
+    sha256 "48085fac32749fb435db1cb3ce02824b984d60e8a0ae1c06f357d8d223d505cc" => :el_capitan
+    sha256 "5375ca6330cba930080c700b6840e91d5ccd82d31791821eeff72bf049eaaf40" => :yosemite
+    sha256 "385ee3d28c6a45140079e3ffe10b6f760c4687bbc3b21c731ec878f7dd067d61" => :mavericks
   end
 
   if build.with? "phpdbg"
@@ -25,7 +26,7 @@ class Php55 < AbstractPhp
     depends_on "flex" => :build
 
     resource "phpdbg" do
-      url    PHPDBG_SRC_TARBAL
+      url PHPDBG_SRC_TARBAL
       sha256 PHPDBG_CHECKSUM[:sha256]
     end
   end

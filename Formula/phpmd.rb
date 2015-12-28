@@ -1,29 +1,21 @@
-require File.expand_path("../../Requirements/php-meta-requirement", __FILE__)
-require File.expand_path("../../Requirements/phar-requirement", __FILE__)
+require File.expand_path("../../Abstract/abstract-php-phar", __FILE__)
 
-class Phpmd < Formula
+class Phpmd < AbstractPhpPhar
+  init
+  desc "PHP Mess Detector"
   homepage "http://phpmd.org"
-  url "http://static.phpmd.org/php/2.2.3/phpmd.phar"
-  sha256 "5cd9d4754a0d2c41a403afe6b7b75e6994d90f8e8df3600a200398dd4271a31b"
+  url "http://static.phpmd.org/php/2.3.2/phpmd.phar"
+  sha256 "81b2c8cfc45c4190e504a25a5c207a5eb5c85e0f0809b2620e2440bfef3edd7c"
   head "https://github.com/phpmd/phpmd.git"
 
-  depends_on PhpMetaRequirement
-  depends_on PharRequirement
-
-  def install
-    libexec.install "phpmd.phar"
-    (bin/"phpmd").write <<-EOS.undent
-      #!/bin/sh
-      /usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off #{libexec}/phpmd.phar $*
-    EOS
+  bottle do
+    cellar :any_skip_relocation
+    sha256 "c9126a56f86d4650246698f14e4c36217cab86d131fbd948dcee40c30d3cbb55" => :el_capitan
+    sha256 "96d453bb29f2256c7b79fded8f995be30379d188cae05bdf1c904cdac1b03df1" => :yosemite
+    sha256 "01d1670856b0d400e2fbce0374b3ce97cd39fe30cd6643b731beda4b522abc2c" => :mavericks
   end
 
   test do
-    (testpath/"test.php").write <<-EOS.undent
-      function hi($msg) {
-        return $msg;
-      }
-    EOS
-    system "phpmd", testpath/"test.php", "text", "cleancode"
+    system "phpmd", "--version"
   end
 end

@@ -2,18 +2,22 @@ require File.expand_path("../../Abstract/abstract-php-extension", __FILE__)
 
 class Php55Ioncubeloader < AbstractPhp55Extension
   init
+  desc "Loader for ionCube Secured Files"
   homepage "http://www.ioncube.com/loaders.php"
   if MacOS.prefer_64_bit?
     url "http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_dar_x86-64.tar.gz"
+    sha256 "fca36c0c00d640d3fa45d3862c68dcc5b3d33afffbc5c902bdc9725df2d1e035"
   else
     url "http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_dar_x86.tar.gz"
+    sha256 "9a3cd4ddad2dad23aa87e49a28ea1fa98878d11a5e7bbfa04fc4d1da6874b4c1"
   end
-  version "4.7.5"
+  version "5.0.17"
 
   bottle do
-    sha1 "858e409c505befb12c20999fd6a854ac2f6fa281" => :yosemite
-    sha1 "2f415dd2a6b0c899f547d179378e1cb05eb39cdd" => :mavericks
-    sha1 "0eb9efc17100409121c62b2d29ac8188a2513538" => :mountain_lion
+    cellar :any_skip_relocation
+    sha256 "c5a234b888feced28f98c1a840bb98694b83e049b099dd36b8beccfad93bb855" => :el_capitan
+    sha256 "51f43c5f2c10bf978d166327819dfb984f1d2421bb66ff67a50d316f47da24d2" => :yosemite
+    sha256 "2cfb9b413b15c7b145eef3a1ce7479d3f65a7c5163a0efb42533977664079a5a" => :mavericks
   end
 
   def extension_type
